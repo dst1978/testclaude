@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voedingsdagboek</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Voedingsdagboek</h1>
+    <nav>
+      <button class="tab active" data-view="day">Dag</button>
+      <button class="tab" data-view="week">Week</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2 id="form-title">Voeding toevoegen</h2>
+      <form id="entry-form">
+        <input type="hidden" id="f-id">
+        <div class="grid">
+          <label>Naam <input id="f-name" required placeholder="bv. Havermout"></label>
+          <label>Datum <input id="f-date" type="date" required></label>
+          <label>Maaltijd
+            <select id="f-meal">
+              <option value="breakfast">Ontbijt</option>
+              <option value="lunch">Lunch</option>
+              <option value="dinner">Avondeten</option>
+              <option value="snack">Snack</option>
+            </select>
+          </label>
+        </div>
+        <div class="grid">
+          <label>Koolhydraten (g) <input id="f-carbs" type="number" min="0" step="0.1" value="0"></label>
+          <label>Eiwitten (g) <input id="f-protein" type="number" min="0" step="0.1" value="0"></label>
+          <label>Vetten (g) <input id="f-fat" type="number" min="0" step="0.1" value="0"></label>
+          <label>Vezels (g) <input id="f-fiber" type="number" min="0" step="0.1" value="0"></label>
+          <label>Suikers (g) <input id="f-sugar" type="number" min="0" step="0.1" value="0"></label>
+          <label>Zout (g) <input id="f-salt" type="number" min="0" step="0.01" value="0"></label>
+        </div>
+        <div class="grid kcal-row">
+          <label>Calorieën (kcal) <input id="f-kcal" type="number" min="0" step="1" value="0" readonly></label>
+          <label class="check"><input id="f-auto" type="checkbox" checked> Automatisch berekenen (4/4/9 kcal per g)</label>
+        </div>
+        <div class="actions">
+          <button type="submit" class="primary" id="f-submit">Toevoegen</button>
+          <button type="button" id="f-cancel" hidden>Annuleren</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="view-day" class="card">
+      <div class="navrow">
+        <button id="day-prev" aria-label="Vorige dag">&larr;</button>
+        <input id="day-date" type="date">
+        <button id="day-next" aria-label="Volgende dag">&rarr;</button>
+        <button id="day-today">Vandaag</button>
+      </div>
+      <div class="goal">
+        <label>Dagdoel (kcal) <input id="goal" type="number" min="0" step="50" placeholder="bv. 2000"></label>
+        <div class="bar"><div id="goal-bar"></div></div>
+        <small id="goal-text"></small>
+      </div>
+      <div id="day-totals" class="totals"></div>
+      <div id="day-entries"></div>
+    </section>
+
+    <section id="view-week" class="card" hidden>
+      <div class="navrow">
+        <button id="week-prev" aria-label="Vorige week">&larr;</button>
+        <strong id="week-label"></strong>
+        <button id="week-next" aria-label="Volgende week">&rarr;</button>
+        <button id="week-today">Deze week</button>
+      </div>
+      <div id="week-chart" class="chart"></div>
+      <div id="week-totals" class="totals"></div>
+      <table id="week-table"></table>
+    </section>
+
+    <section class="card">
+      <h2>Gegevens</h2>
+      <button id="export">Exporteren (JSON)</button>
+      <label class="file">Importeren <input id="import" type="file" accept="application/json"></label>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
